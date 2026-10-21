@@ -23,15 +23,7 @@ pipeline {
 
         stage('Push to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-                    bat 'docker push nithyasri87/java-cicd-demo:latest'
-                    bat 'docker logout'
-                }
+                bat 'docker push nithyasri87/java-cicd-demo:latest'
             }
         }
     }
