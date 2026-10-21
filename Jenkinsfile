@@ -26,5 +26,13 @@ pipeline {
                 bat 'docker push nithyasri87/java-cicd-demo:latest'
             }
         }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat 'kubectl apply -f k8s\\deployment.yaml'
+                bat 'kubectl rollout restart deployment/java-cicd-demo'
+                bat 'kubectl rollout status deployment/java-cicd-demo --timeout=120s'
+            }
+        }
     }
 }
